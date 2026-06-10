@@ -5,7 +5,6 @@ from flask import Flask, render_template, request
 from openai import OpenAI, AuthenticationError, PermissionDeniedError
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -23,7 +22,7 @@ def check_key():
             "index.html",
             result="error",
             message="Please enter an API key.",
-        )
+        ), 400
 
     try:
         client = OpenAI(api_key=api_key)
@@ -52,9 +51,10 @@ def check_key():
             "index.html",
             result="error",
             message="⚠️ An unexpected error occurred. Please try again.",
-        )
+        ), 500
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     debug = os.environ.get("FLASK_DEBUG", "").lower() in {"1", "true", "yes"}
     app.run(debug=debug)

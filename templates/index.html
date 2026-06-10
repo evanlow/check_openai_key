@@ -94,14 +94,17 @@
         name="api_key"
         placeholder="sk-..."
         autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
         spellcheck="false"
+        required
         aria-required="true"
       ></textarea>
       <button type="submit">Check Key</button>
     </form>
 
     {% if message %}
-    <div class="result {{ result }}">{{ message }}</div>
+    <div class="result {{ result }}" role="status" aria-live="polite">{{ message }}</div>
     {% endif %}
   </div>
 </body>
